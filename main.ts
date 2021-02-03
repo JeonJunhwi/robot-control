@@ -1,29 +1,21 @@
-function setRight (value: number) {
-    if (right != value) {
-        radio.sendValue("right", value)
-        right = value
-    }
-}
-function setLeft (value: number) {
-    if (left != value) {
-        radio.sendValue("left", value)
-        left = value
-    }
-}
-let left = 0
-let right = 0
-radio.setGroup(1)
-basic.forever(function () {
-    if (input.buttonIsPressed(Button.A)) {
-        setLeft(255)
-        setRight(-255)
-    } else if (input.buttonIsPressed(Button.B)) {
-        setLeft(-255)
-        setRight(255)
-    } else if (input.buttonIsPressed(Button.AB)) {
-        setLeft(0)
-        setRight(0)
+input.onButtonPressed(Button.A, function () {
+    if (left == 255) {
+        radio.sendValue("left", 0)
+        left = 0
     } else {
-    	
+        radio.sendValue("left", 255)
+        left = 255
     }
 })
+input.onButtonPressed(Button.B, function () {
+    if (right == 255) {
+        radio.sendValue("right", 0)
+        right = 0
+    } else {
+        radio.sendValue("right", 255)
+        right = 255
+    }
+})
+let right = 0
+let left = 0
+radio.setGroup(1)
